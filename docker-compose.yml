@@ -25,7 +25,7 @@ services:
     build: ./video_dection
     runtime: nvidia
     command: python /video_dection/video_dection.py
-    volomes:
+    volumes:
       - ./video_dection:/video_dection
     depends_on:
       - web
