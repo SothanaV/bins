@@ -16,7 +16,7 @@ RUN unzip 4.1.0.zip && rm -rf 4.1.0.zip && mv opencv-4.1.0 OpenCV && cd OpenCV &
 RUN apt-get -y autoremove && apt-get -y autoclean
 RUN rm -rf /var/cache/apt
 
-ADD ./video_dection /video_dection/
-WORKDIR /video_dection/
-RUN pip3 install -r /video_dection/requirements.txt
-WORKDIR /video_dection/
+ADD ./video_detection /video_detection/
+WORKDIR /video_detection/
+RUN pip3 install -r /video_detection/requirements.txt
+WORKDIR /video_detection/
