@@ -33,8 +33,6 @@ def video_stream():
                 detected_class = obj.decode('utf-8')
                 if detected_class in accept_cls:
                     status = 1
-                else:
-                    status = 0
             frame, is_alert = video_camera.draw_yolo(detected_objects=detected_objects)
             sio.emit('image', {
                 'image': frame,
