@@ -26,19 +26,21 @@ def video_stream():
         
     while True:
         img = video_camera.get_frame(byte=False)
+        status = 0
         if img is not None:
             detected_objects = detect(net, meta, img, thresh=.30)
             for obj, confidence, rect in detected_objects:
                 detected_class = obj.decode('utf-8')
                 if detected_class in accept_cls:
-                    sio.emit('class',1)
+                    status = 1
                 else:
-                    sio.emit('class',0)
+                    status = 0
             frame, is_alert = video_camera.draw_yolo(detected_objects=detected_objects)
             sio.emit('image', {
                 'image': frame,
                 'camera_id': 0, # fixed camera id (Int)
                 'is_alert': is_alert,
                 })
+        sio.emit('class',status)
 if __name__ == '__main__':
     video_stream()
