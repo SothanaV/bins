@@ -1,5 +1,5 @@
 (function () {
-  const cameraPerSection = 12;
+  const cameraPerSection = 1;
   let container = document.querySelector('.container');
 
   for (let i = 0; i < cameraPerSection; i++) {

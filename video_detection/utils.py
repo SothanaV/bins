@@ -53,6 +53,7 @@ class VideoCamera(object):
             return None
 
         if byte:
+            frame = cv2.resize(frame, (360, 270))
             ret, jpeg = cv2.imencode('.jpg', frame)
             return jpeg.tobytes()
         else:

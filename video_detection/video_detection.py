@@ -19,6 +19,7 @@ accept_cls = []
 def video_stream():
     global video_camera, net, meta,data
     alert_classes = [] # target classes
+    alert_classes+=accept_cls
 
     if video_camera == None:
         video_camera = VideoCamera(camera=camera, alert_classes=alert_classes)
@@ -39,7 +40,5 @@ def video_stream():
                 'camera_id': 0, # fixed camera id (Int)
                 'is_alert': is_alert,
                 })
-def funcname(parameter_list):
-    pass
 if __name__ == '__main__':
     video_stream()
