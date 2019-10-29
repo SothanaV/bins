@@ -15,9 +15,11 @@ RUN unzip 4.1.0.zip && rm -rf 4.1.0.zip && mv opencv-4.1.0 OpenCV && cd OpenCV &
     make -j16 && make install && ldconfig
 RUN apt-get -y autoremove && apt-get -y autoclean
 RUN rm -rf /var/cache/apt
-
-ADD . /video_detection/
+RUN apt install -y python-socketio
+RUN apt-get -o Dpkg::Options::="--force-confmiss" install -y --reinstall netbase
+ADD ./requirements.txt /video_detection/
 WORKDIR /video_detection/
 RUN pip3 install -r /video_detection/requirements.txt
 WORKDIR /video_detection/
-RUN usermod -a -G video developer
+#RUN usermod -a -G video developer
+

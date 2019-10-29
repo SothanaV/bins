@@ -4,18 +4,18 @@ from darknet.python import darknet as dn
 from darknet.python.darknet import detect,nparray_to_image
 
 sio = socketio.Client()
-sio.connect('http://localhost:5000')
+sio.connect('http://socket:5000')
 video_camera = None
 
-weights = 'darknet/yolov3.weights'
-netcfg  = 'darknet/cfg/yolov3.cfg'
+weights = 'darknet/yolov2.weights'
+netcfg  = 'darknet/cfg/yolov2.cfg'
 data = 'darknet/cfg/coco.data'
 
 net  = dn.load_net(netcfg.encode('utf-8'), weights.encode('utf-8'), 0)
 meta = dn.load_meta(data.encode('utf-8'))
 
-camera = None # RTSP IP For ip-cam OR 0 For Default video-cam
-accept_cls = []
+camera = 0 # RTSP IP For ip-cam OR 0 For Default video-cam
+accept_cls = ["bottle"]
 def video_stream():
     global video_camera, net, meta,data
     alert_classes = [] # target classes

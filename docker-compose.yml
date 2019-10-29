@@ -1,5 +1,7 @@
 version: '2.3'
-
+networks:
+  socket:
+    external: true
 services:
   # video detection underconstruct
   # waiting for Naii docker-image
@@ -8,6 +10,8 @@ services:
     command: sh /socket/runserver.sh
     ports:
       - 5000:5000
+    networks:
+      - socket
     volumes:
       - ./socket:/socket
     restart: always
@@ -24,10 +28,15 @@ services:
   video_detection:
     build: ./video_detection
     runtime: nvidia
-    command: python /video_detection/video_detection.py
+    command: python3 /video_detection/video_detection.py
     volumes:
       - ./video_detection:/video_detection
     depends_on:
       - web
+      - socket
     devices:
       - /dev/video0:/dev/video0
+    networks:
+      - socket
+    expose:
+    - "5000"
