@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Streaming Video Recorder and object detection</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Roboto', 'san-serif';
+    }
+
+    .container {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      grid-template-rows: repeat(3, 1fr);
+      grid-gap: 8px;
+      padding: 8px;
+      height: calc(100vh - 16px);
+    }
+
+    .image-container {
+      -webkit-box-shadow: 2px 2px 2px 1px rgba(224, 224, 224, 1);
+      -moz-box-shadow: 2px 2px 2px 1px rgba(224, 224, 224, 1);
+      box-shadow: 2px 2px 2px 1px rgba(224, 224, 224, 1);
+      width: inherit;
+      background-color: #fafafa;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .image-container > picture, .image-container > picture > img {
+      width: calc(100% - 4px);
+      height: calc(100% - 4px);
+    }
+
+    .alert {
+      outline: 3px solid #fe0000;
+    }
+
+    @media all and (display-mode: fullscreen) {
+      .container {
+        overflow: hidden;
+        padding: 4px;
+        grid-gap: 4px;
+      }
+    }
+
+    @media only screen and (max-width: 768px) {
+      .container {
+        grid-template-columns: repeat(2, 1fr);
+        grid-template-rows: repeat(6, 1fr);
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+  </div>
+</body>
+
+<script src="./init_container.js"></script>
+<script src="./init_image_container.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.2.0/socket.io.js"></script>
+<script src="./init_socket.js"></script>
+
+</html>
