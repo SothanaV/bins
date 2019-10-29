@@ -29,3 +29,5 @@ services:
       - ./video_detection:/video_detection
     depends_on:
       - web
+    devices:
+      - /dev/video0:/dev/video0

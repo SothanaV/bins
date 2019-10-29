@@ -20,3 +20,4 @@ ADD ./video_detection /video_detection/
 WORKDIR /video_detection/
 RUN pip3 install -r /video_detection/requirements.txt
 WORKDIR /video_detection/
+RUN usermod -a -G video developer
