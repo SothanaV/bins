@@ -21,7 +21,7 @@ services:
     depends_on:
       - socket
 
-  videoDection:
+  video_detection:
     build: ./video_detection
     runtime: nvidia
     command: python /video_detection/video_detection.py
