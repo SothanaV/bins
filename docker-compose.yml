@@ -22,10 +22,10 @@ services:
       - socket
 
   videoDection:
-    build: ./video_dection
+    build: ./video_detection
     runtime: nvidia
-    command: python /video_dection/video_dection.py
+    command: python /video_detection/video_detection.py
     volumes:
-      - ./video_dection:/video_dection
+      - ./video_detection:/video_detection
     depends_on:
       - web
