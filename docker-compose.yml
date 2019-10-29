@@ -1,4 +1,4 @@
-version: '2'
+version: '2.3'
 
 services:
   # video detection underconstruct
@@ -20,3 +20,12 @@ services:
       - ./web/:/usr/share/nginx/html/
     depends_on:
       - socket
+
+  videoDection:
+    build: ./video_dection
+    runtime: nvidia
+    command: python /video_dection/video_dection.py
+    volomes:
+      - ./video_dection:/video_dection
+    depends_on:
+      - web
