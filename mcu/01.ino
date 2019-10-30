@@ -1,13 +1,13 @@
-#include <servo.h>
+#include <Servo.h>
 #include <ESP8266WiFi.h>
 #include <ESP8266WiFiMulti.h>
 #include <ESP8266HTTPClient.h>
 
 Servo servo;
 
-const char* ssid     = "ois";                   //Set ssid
+const char* ssid     = "Com-Lab";                   //Set ssid
 const char* password = "ilovestudy";            //Set Password
-const char* Server   = "192.168.1.6";          //set Server Domain or Server
+const char* Server   = "192.168.88.245";          //set Server Domain or Server
 ESP8266WiFiMulti WiFiMulti;
 
 void setup()
@@ -40,12 +40,13 @@ void loop()
             if(httpCode == HTTP_CODE_OK) 
             {
                 String payload = http.getString();
-                Serial.printf("%s : %s \n","Payload",payload);
-                if (payload=='0')
+                Serial.printf("%s \n","Payload");
+                Serial.println(payload);
+                if (payload=="0")
                 {
                     servo.write(0);
                 }
-                else if(payload=='1')
+                else if(payload=="1")
                 {
                     servo.write(90);
                 }
