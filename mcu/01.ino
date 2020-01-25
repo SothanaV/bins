@@ -49,6 +49,7 @@ void loop()
                 else if(payload=="1")
                 {
                     servo.write(90);
+                    delay(500);
                 }
             } 
         }
