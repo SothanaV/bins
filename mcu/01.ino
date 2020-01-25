@@ -49,7 +49,12 @@ void loop()
                 }
                 else if(payload=="1")
                 {
+<<<<<<< HEAD
                     servo.write(170);
+=======
+                    servo.write(90);
+                    delay(500);
+>>>>>>> 8fd61e0391b4035ba864ddd20f7733e7cb9ee9a0
                 }
             } 
         }

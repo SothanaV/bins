@@ -37,7 +37,7 @@ function alertContainer(container) {
 const urlParams = new URLSearchParams(window.location.search);
 const sectionId = urlParams.get('section') || '1';
 
-const socket = io('http://localhost:5000');
+const socket = io('http://bin.local:5000');
 socket.on('connect', function () {
   socket.on(`broadcast-image-${sectionId}`, data => {
     const { image, camera_id: cameraId, is_alert: isAlert } = data;
