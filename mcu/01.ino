@@ -6,7 +6,7 @@
 Servo servo;
 
 const char* ssid     = "Com-Lab";                   //Set ssid
-const char* password = "";            //Set Password
+const char* password = "ilovestudy";            //Set Password
 const char* Server   = "192.168.88.245";          //set Server Domain or Server
 ESP8266WiFiMulti WiFiMulti;
 
@@ -45,16 +45,13 @@ void loop()
                 Serial.println(payload);
                 if (payload=="0")
                 {
-                    servo.write(0);
+                    servo.write(1);
+                    delay(100);
                 }
                 else if(payload=="1")
                 {
-<<<<<<< HEAD
-                    servo.write(170);
-=======
-                    servo.write(90);
+                    servo.write(180);
                     delay(500);
->>>>>>> 8fd61e0391b4035ba864ddd20f7733e7cb9ee9a0
                 }
             } 
         }
