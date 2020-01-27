@@ -89,10 +89,11 @@ class VideoCamera(object):
             
             if detected_class in self.alert_classes:
                 is_detected_alert_class = True
-                frame = cv2.rectangle(frame, (x1, y1), (x2, y2), color[detected_class], 3)
+            #     frame = cv2.rectangle(frame, (x1, y1), (x2, y2), color[detected_class], 3)
 
-            else:
-                frame = cv2.rectangle(frame, (x1, y1), (x2, y2), (0, 0, 0), 2)
+            # else:
+            #     frame = cv2.rectangle(frame, (x1, y1), (x2, y2), (0, 0, 0), 2)
+            frame = cv2.rectangle(frame, (x1, y1), (x2, y2), color[detected_class], 3)
 
             frame = cv2.putText(frame, text, (x1, y1), cv2.FONT_HERSHEY_DUPLEX, 0.8, (255, 255, 255), lineType=cv2.LINE_AA)
 

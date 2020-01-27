@@ -8,12 +8,11 @@ sio.connect('http://socket:5000')
 video_camera = None
 
 thresh = 0.4
+# weights = 'darknet/model/06/backup/yolo_v3_final.weights'
+# netcfg  = 'darknet/model/06/yolo/yolo_v3.cfg'
+
 weights = 'darknet/model/06/backup/yolo_v2_final.weights'
 netcfg  = 'darknet/model/06/yolo/yolo_v2.cfg'
-
-# thresh = 0.3
-# weights = 'darknet/model/05/backup/yolo-obj-train_final.weights'
-# netcfg  = 'darknet/model/05/yolo/yolo-obj-test.cfg'
 
 
 data = 'darknet/model/06/yolo/annotate/obj.data'
