@@ -23,6 +23,7 @@ def listen_detec(data):
 @app.route('/mcu')
 def mcu_request():
     global tmp
+    emit('mcu',tmp,broadcast=True)
     return str(tmp)
 
 if __name__ == '__main__':
