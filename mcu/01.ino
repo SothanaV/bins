@@ -27,7 +27,8 @@ void setup()
 
 void loop()
 {
-    if((WiFiMulti.run() == WL_CONNECTED)) 
+    // if((WiFiMulti.run() == WL_CONNECTED))
+    if(true) 
     {
         HTTPClient http;
         String str = "http://" +String(Server)+":5000"+"/mcu";
@@ -44,15 +45,16 @@ void loop()
                 Serial.println(payload);
                 if (payload=="0")
                 {
-                    servo.write(0);
+                    servo.write(1);
+                    delay(100);
                 }
                 else if(payload=="1")
                 {
-                    servo.write(90);
+                    servo.write(180);
                     delay(500);
                 }
             } 
         }
     }
-    delay(100);
+    delay(500);
 }
