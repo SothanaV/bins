@@ -19,11 +19,11 @@ def broadcast_image(data):
 def listen_detec(data):
     global tmp
     tmp = data
+    emit('mcu',tmp,broadcast=True)
 
 @app.route('/mcu')
 def mcu_request():
     global tmp
-    emit('mcu',tmp,broadcast=True)
     return str(tmp)
 
 if __name__ == '__main__':
