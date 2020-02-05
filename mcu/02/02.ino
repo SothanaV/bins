@@ -22,15 +22,7 @@ void loop()
         Serial.printf("%s \n","Payload");
         Serial.println(payload);
         angle = payload.toInt();
-        if (payload==0)
-        {
-            servo.write(0);
-            delay(100);
-        }
-        else if(payload!=0)
-        {
-            servo.write(angle);
-            delay(500);
-        }
+        servo.write(angle);
+        delay(100);
     }
 }
