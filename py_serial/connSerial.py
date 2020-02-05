@@ -1,22 +1,24 @@
 import socketio
 import serial
-
+from datetime import datetime,timedelta
 sio = socketio.Client()
 sio.connect('http://localhost:5000')
 print('my sid is', sio.sid)
 
-ser = serial.Serial('/dev/cu.wchusbserial1440',115200)
-
+ser = serial.Serial('/dev/ttyUSB0',115200)
+current = datetime.now()
 
 @sio.on('mcu')
 def my_event(data):
+    
     print('Received data: ', data)
     if data == 1:
-        command = "180"
-        ser.write(command.encode())
+        print("Close")
+        command="180"
     elif data == 0:
-        command = "0"
-        ser.write(command.encode())
-    s = ser.readline()
-    s = s.decode('utf-8','ignore')
-    print(s)
+        print("Open")
+        command="140"
+    command+='\n'
+    ser.write(command.encode())
+    sio.sleep(2)
+        
