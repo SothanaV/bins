@@ -20,7 +20,11 @@ data = 'darknet/model/06/yolo/annotate/obj.data'
 net  = dn.load_net(netcfg.encode('utf-8'), weights.encode('utf-8'), 0)
 meta = dn.load_meta(data.encode('utf-8'))
 camera = 0 # RTSP IP For ip-cam OR 0 For Default video-cam
-accept_cls = ['glass','can']
+accept_cls = ['glass','can','plastic']
+pgm = {'glass':0,
+    'can':1,
+    'plastic':2
+}
 def video_stream():
     global video_camera, net, meta,data
     count = 0
@@ -37,8 +41,7 @@ def video_stream():
             detected_objects = detect(net, meta, img, thresh=.3)
             for obj, confidence, rect in detected_objects:
                 detected_class = obj.decode('utf-8')
-                if detected_class in accept_cls:
-                    status = 1  
+                status = pgm[detected_class]
             frame, is_alert = video_camera.draw_yolo(detected_objects=detected_objects)
             sio.emit('image', {
                 'image': frame,
