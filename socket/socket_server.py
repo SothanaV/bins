@@ -26,5 +26,9 @@ def mcu_request():
     global tmp
     return str(tmp)
 
+@socketio.on('fps_out')
+def brod_fps(data):
+    emit('fps_in',data,broadcast=True)
+
 if __name__ == '__main__':
     socketio.run(app, host='0.0.0.0', )

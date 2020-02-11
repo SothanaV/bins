@@ -3,6 +3,8 @@ from utils import VideoCamera
 from darknet.python import darknet as dn
 from darknet.python.darknet import detect,nparray_to_image
 from time import sleep
+from datetime import timedelta,datetime
+
 sio = socketio.Client()
 sio.connect('http://socket:5000')
 video_camera = None
@@ -30,7 +32,7 @@ def video_stream():
     count = 0
     alert_classes = [] # target classes
     alert_classes+=accept_cls
-
+    current = datetime.now()
     if video_camera == None:
         video_camera = VideoCamera(camera=camera, alert_classes=alert_classes)
     while True:
@@ -49,7 +51,9 @@ def video_stream():
                 'is_alert': is_alert,
                 })
         sio.emit('class',status)
-        # if status==1:
-        #     sleep(1)
+        if datetime.now() > (current+timedelta(seconds=1)):
+            sio.emit('fps_out',count)
+            count=0
+            current=datetime.now()
 if __name__ == '__main__':
     video_stream()
