@@ -8,6 +8,7 @@ Servo servo;
 const char* ssid     = "SE-Lab";                   //Set ssid
 const char* password = "ilovestudy";            //Set Password
 const char* Server   = "192.168.88.69";          //set Server Domain or Server
+int delay_time = 200; //ms
 ESP8266WiFiMulti WiFiMulti;
 
 void setup()
@@ -46,15 +47,20 @@ void loop()
                 if (payload=="0")
                 {
                     servo.write(180);
-                    delay(500);
+                    delay(delay_time);
                 }
                 else if(payload=="1")
                 {
-                    servo.write(120);
-                    delay(100);
+                    servo.write(135);
+                    delay(delay_time);
+                }
+                else if(payload=="2")
+                {
+                    servo.write(100);
+                    delay(delay_time);
                 }
             } 
         }
     }
-    delay(500);
+    delay(delay_time);
 }
