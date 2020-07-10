@@ -3,40 +3,26 @@ networks:
   socket:
     external: true
 services:
-  # video detection underconstruct
-  # waiting for Naii docker-image
-  socket:
-    build: ./socket
-    command: sh /socket/runserver.sh
+
+  zmq:
+    build: ./zmq
+    command: sh /zmq/runserver.sh
     ports:
-      - 5000:5000
+      - 5560:5560
     networks:
       - socket
     volumes:
       - ./socket:/socket
-    restart: always
-
-  web:
-    image: nginx:1.17.2-alpine
-    ports:
-      - 8080:80
-    volumes:
-      - ./web/:/usr/share/nginx/html/
-    depends_on:
-      - socket
 
   video_detection:
     build: ./video_detection
     runtime: nvidia
     command: python3 /video_detection/video_detection.py
     volumes:
-      - ./video_detection:/video_detection
+      - ./models/:/video_detection/darknet/models/
     depends_on:
-      - web
-      - socket
+      - zmq
     devices:
       - /dev/video0:/dev/video0
     networks:
       - socket
-    expose:
-    - "5000"

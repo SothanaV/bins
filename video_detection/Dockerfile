@@ -18,9 +18,10 @@ RUN rm -rf /var/cache/apt
 RUN apt install -y python-socketio
 RUN apt-get -o Dpkg::Options::="--force-confmiss" install -y --reinstall netbase
 ADD ./requirements.txt /video_detection/
-WORKDIR /video_detection/
-RUN git clone https://gitlab.com/SothanaV/darknet.git && cd darknet && make
 RUN pip3 install -r /video_detection/requirements.txt
+WORKDIR /video_detection/
+RUN git clone https://github.com/SothanaV/darknet.git && cd darknet && make
+ADD . /video_detection/
 WORKDIR /video_detection/
 #RUN usermod -a -G video developer
 
