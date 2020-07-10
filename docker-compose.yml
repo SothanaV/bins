@@ -11,8 +11,13 @@ services:
       - 5560:5560
     networks:
       - socket
-    volumes:
-      - ./socket:/socket
+  server:
+    build: ./server
+    command: python server.py
+    networks: 
+      - socket
+    ports: 
+      - 5000:5000
 
   video_detection:
     build: ./video_detection

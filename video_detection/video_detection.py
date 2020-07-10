@@ -1,3 +1,4 @@
+import socketio
 from utils import VideoCamera
 from darknet.python import darknet as dn
 from darknet.python.darknet import detect,nparray_to_image
@@ -8,6 +9,9 @@ import zmq
 context = zmq.Context()
 zmq_socket = context.socket(zmq.PUSH)
 zmq_socket.connect("tcp://zmq:5559")
+
+sio = socketio.Client()
+sio.connect('http://server:5000')
 
 thresh = 0.4
 
@@ -52,5 +56,6 @@ def video_stream():
                 count=0
                 current=datetime.now()
             zmq_socket.send_pyobj(data)
+            sio.emit('class', status)
 if __name__ == '__main__':
     video_stream()

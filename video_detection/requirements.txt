@@ -6,9 +6,11 @@ MarkupSafe==1.1.1
 numpy==1.17.0
 opencv-python==4.1.0.25
 python-engineio==3.9.2
+python-socketio==4.3.0
 pyzmq==18.1.1
 requests==2.22.0
 six==1.12.0
 urllib3==1.25.3
 websocket-client==0.56.0
 Werkzeug==0.15.5
+eventlet
