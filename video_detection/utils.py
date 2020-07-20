@@ -97,9 +97,10 @@ class VideoCamera(object):
 
             frame = cv2.putText(frame, text, (x1, y1), cv2.FONT_HERSHEY_DUPLEX, 0.8, (255, 255, 255), lineType=cv2.LINE_AA)
 
-        frame = cv2.resize(frame, (360, 270))
-        ret, jpeg = cv2.imencode('.jpg', frame)
+        # frame = cv2.resize(frame, (360, 270))
+        return frame, is_detected_alert_class
+        # ret, jpeg = cv2.imencode('.jpg', frame)
 
-        jpeg_bytes = jpeg.tobytes()
+        # jpeg_bytes = jpeg.tobytes()
 
-        return base64.b64encode(jpeg_bytes), is_detected_alert_class
+        # return base64.b64encode(jpeg_bytes), is_detected_alert_class

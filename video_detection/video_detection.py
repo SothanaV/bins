@@ -4,20 +4,20 @@ from darknet.python import darknet as dn
 from darknet.python.darknet import detect,nparray_to_image
 from time import sleep
 from datetime import timedelta,datetime
+import zmq
+
+context = zmq.Context()
+zmq_socket = context.socket(zmq.PUSH)
+zmq_socket.connect("tcp://zmq:5559")
 
 sio = socketio.Client()
-sio.connect('http://socket:5000')
-video_camera = None
+sio.connect('http://server:5000')
 
 thresh = 0.4
-# weights = 'darknet/model/06/backup/yolo_v3_final.weights'
-# netcfg  = 'darknet/model/06/yolo/yolo_v3.cfg'
 
-weights = 'darknet/model/06/backup/yolo_v2_final.weights'
-netcfg  = 'darknet/model/06/yolo/yolo_v2.cfg'
-
-
-data = 'darknet/model/06/yolo/annotate/obj.data'
+weights = 'darknet/models/bins/backup/yolo-v4-obj-train_last.weights'
+netcfg  = 'darknet/models/bins/yolo/yolo-v4-obj-test.cfg'
+data = 'darknet/models/bins/yolo/annotate/obj.data'
 
 net  = dn.load_net(netcfg.encode('utf-8'), weights.encode('utf-8'), 0)
 meta = dn.load_meta(data.encode('utf-8'))
@@ -27,6 +27,7 @@ pgm = {'glass':0,
     'can':1,
     'plastic':2
 }
+video_camera = None
 def video_stream():
     global video_camera, net, meta,data
     count = 0
@@ -40,20 +41,21 @@ def video_stream():
         count+=1
         img = video_camera.get_frame(byte=False)
         if img is not None:
-            detected_objects = detect(net, meta, img, thresh=.3)
+            detected_objects = detect(net, meta, img, thresh=thresh)
             for obj, confidence, rect in detected_objects:
                 detected_class = obj.decode('utf-8')
                 status = pgm[detected_class]
             frame, is_alert = video_camera.draw_yolo(detected_objects=detected_objects)
-            sio.emit('image', {
-                'image': frame,
+            data = {
+                'frame': frame,
                 'camera_id': 0, # fixed camera id (Int)
                 'is_alert': is_alert,
-                })
-        sio.emit('class',status)
-        if datetime.now() > (current+timedelta(seconds=1)):
-            sio.emit('fps_out',count)
-            count=0
-            current=datetime.now()
+            }
+            if datetime.now() > (current+timedelta(seconds=1)):
+                data['fps'] = count
+                count=0
+                current=datetime.now()
+            zmq_socket.send_pyobj(data)
+            sio.emit('class', status)
 if __name__ == '__main__':
     video_stream()
