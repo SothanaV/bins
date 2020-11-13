@@ -1,7 +1,7 @@
 FROM nvidia/cuda:latest
+ARG DEBIAN_FRONTEND=noninteractive
 RUN apt-get update && apt-get install -y software-properties-common && add-apt-repository ppa:deadsnakes/ppa &&\
     add-apt-repository main && add-apt-repository universe && add-apt-repository restricted && add-apt-repository multiverse
-ARG DEBIAN_FRONTEND=noninteractive
 RUN apt-get update && \
     apt-get install -y wget git pkg-config build-essential cmake zlib1g-dev libjpeg-dev libwebp-dev libpng-dev \ 
     libtiff5-dev libopenexr-dev libgdal-dev libavcodec-dev libavformat-dev libswscale-dev \ 
